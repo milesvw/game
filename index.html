@@ -14,8 +14,8 @@
     <script type="text/javascript">
       var config = {
         type: Phaser.AUTO,
-        width: 800,
-        height: 600,
+        width: window.innerWidth, // or 800
+        height: window.innerHeight, // or 600
         physics: {
           default: 'arcade',
           arcade: {
@@ -51,7 +51,8 @@
 
       function create() {
         // Background image
-        this.add.image(400, 300, 'sky');
+        // this.add.image(400, 300, 'sky');
+        this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'sky').setDisplaySize(window.innerWidth, window.innerHeight);
 
         // The platforms group contains the ground and the 2 ledges we can jump on
         platforms = this.physics.add.staticGroup();
