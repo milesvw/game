@@ -47,8 +47,8 @@ var game = new Phaser.Game(config);
 function preload ()
 {
     this.load.image('sky', 'assets/sky.png');
-    this.load.image('ground', 'assets/newPlatform.png');
-    this.load.image('star', 'assets/brocolli.png');
+    this.load.image('ground', 'assets/platform.png');
+    this.load.image('star', 'assets/broccoli.png');
     this.load.image('bomb', 'assets/sugar.png');
     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
 }
@@ -223,7 +223,7 @@ function update ()
         player.anims.play('turn');
     }
 
-    if (cursors.up.isDown/* && player.body.touching.down*/)
+    if (cursors.up.isDown)
     {
         player.setVelocityY(-330);
     }
@@ -238,11 +238,6 @@ function collectStar (player, star)
     scoreText.setText('Score: ' + score);
     scoreNum += 1;
     
-    //star.children.iterate(function (child) {
-
-    //  child.enableBody(true, child.x, 0, true, true);
-
-    //});
     if(scoreNum % 5 == 0){
       var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
 
@@ -269,8 +264,7 @@ function collectStar (player, star)
     }
 }
 
-function hitBomb (player, bomb)
-{
+function hitBomb (player, bomb){
     this.physics.pause();
 
     player.setTint(0xff0000);
