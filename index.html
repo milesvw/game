@@ -2,7 +2,7 @@
 <html lang="en"> 
 <head> 
     <meta charset="UTF-8" />
-    <title>Educational game</title>
+    <title>Nutition game</title>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
     <style type="text/css">
         body {
@@ -15,13 +15,13 @@
 <script type="text/javascript">
 
 var config = {
-    type: Phaser.AUTO,
+    type: Phaser.CANVAS,
     width: window.innerWidth,
     height: window.innerHeight,
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 300 },
+            gravity: { y: 500 },
             debug: false
         }
     },
@@ -33,8 +33,8 @@ var config = {
 };
 
 var player;
-var stars;
-var bombs;
+var Veggies;
+var Sugars;
 var platforms;
 var cursors;
 var score = 0;
@@ -48,13 +48,12 @@ function preload ()
 {
     this.load.image('sky', 'assets/sky.png');
     this.load.image('ground', 'assets/platform.png');
-    this.load.image('star', 'assets/broccoli.png');
-    this.load.image('bomb', 'assets/sugar.png');
+    this.load.image('Veggie', 'assets/broccoli.png');
+    this.load.image('Sugar', 'assets/sugar.png');
     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
 }
 
 function create (){
-    //this.bounds = new Phaser.Geom.Rectangle(0, 0, 1600, 1200);
     //  A simple background for our game
     this.add.image(window.innerWidth / 2, window.innerHeight / 2, 'sky').setDisplaySize(window.innerWidth, window.innerHeight);
 
@@ -63,11 +62,11 @@ function create (){
 
     //  Here we create the ground.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    platforms.create(400, 750, 'ground');
-    platforms.create(0, 750, 'ground');
-    platforms.create(800, 750, 'ground');
-    platforms.create(1200, 750, 'ground');
-    platforms.create(1600, 750, 'ground');
+    platforms.create(400, window.innerHeight - 30, 'ground');
+    platforms.create(0, window.innerHeight - 30, 'ground');
+    platforms.create(800, window.innerHeight - 30, 'ground');
+    platforms.create(1200, window.innerHeight - 30, 'ground');
+    platforms.create(1600, window.innerHeight - 30, 'ground');
 
     //  Now let's create some ledges
     platforms.create(Math.floor((Math.random() * 1400)), 200 + (100 * Math.floor((Math.random() * 5))), 'ground');
@@ -108,93 +107,93 @@ function create (){
     //  Input Events
     cursors = this.input.keyboard.createCursorKeys();
 
-    star1 = this.physics.add.group({
-        key: 'star',
+    Veggie1 = this.physics.add.group({
+        key: 'Veggie',
         repeat: 0,
         setXY: { x: Math.floor((Math.random() * 1400)), y: Math.floor((Math.random() * 500)), stepX: 100 + Math.floor((Math.random() * 200)) }
     });
 
-    star1.children.iterate(function (child) {
+    Veggie1.children.iterate(function (child) {
 
-        //  Give each star a slightly different bounce
-        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+        //  Give each Veggie a slightly different bounce
+        child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.5));
 
     });
 
-    star2 = this.physics.add.group({
-        key: 'star',
+    Veggie2 = this.physics.add.group({
+        key: 'Veggie',
         repeat: 0,
         setXY: { x: Math.floor((Math.random() * 1400)), y: Math.floor((Math.random() * 500)), stepX: 100 + Math.floor((Math.random() * 200)) }
     });
 
-    star2.children.iterate(function (child) {
+    Veggie2.children.iterate(function (child) {
 
-        //  Give each star a slightly different bounce
-        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+        //  Give each Veggie a slightly different bounce
+        child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.5));
 
     });
 
-    star3 = this.physics.add.group({
-        key: 'star',
+    Veggie3 = this.physics.add.group({
+        key: 'Veggie',
         repeat: 0,
         setXY: { x: Math.floor((Math.random() * 1400)), y: Math.floor((Math.random() * 500)), stepX: 100 + Math.floor((Math.random() * 200)) }
     });
 
-    star3.children.iterate(function (child) {
+    Veggie3.children.iterate(function (child) {
 
-        //  Give each star a slightly different bounce
-        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+        //  Give each Veggie a slightly different bounce
+        child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.5));
 
     });
 
-    star4 = this.physics.add.group({
-        key: 'star',
+    Veggie4 = this.physics.add.group({
+        key: 'Veggie',
         repeat: 0,
         setXY: { x: Math.floor((Math.random() * 1400)), y: Math.floor((Math.random() * 500)), stepX: 100 + Math.floor((Math.random() * 200)) }
     });
 
-    star4.children.iterate(function (child) {
+    Veggie4.children.iterate(function (child) {
 
-        //  Give each star a slightly different bounce
-        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+        //  Give each Veggie a slightly different bounce
+        child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.5));
 
     });
 
-    star5 = this.physics.add.group({
-        key: 'star',
+    Veggie5 = this.physics.add.group({
+        key: 'Veggie',
         repeat: 0,
         setXY: { x: Math.floor((Math.random() * 1400)), y: Math.floor((Math.random() * 500)), stepX: 100 + Math.floor((Math.random() * 200)) }
     });
 
-    star5.children.iterate(function (child) {
+    Veggie5.children.iterate(function (child) {
 
-        //  Give each star a slightly different bounce
-        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+        //  Give each Veggie a slightly different bounce
+        child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.5));
 
     });
 
-    bombs = this.physics.add.group();
+    Sugars = this.physics.add.group();
 
     //  The score
     scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 
-    //  Collide the player and the stars with the platforms
+    //  Collide the player and the Veggies with the platforms
     this.physics.add.collider(player, platforms);
-    this.physics.add.collider(star1, platforms);
-    this.physics.add.collider(star2, platforms);
-    this.physics.add.collider(star3, platforms);
-    this.physics.add.collider(star4, platforms);
-    this.physics.add.collider(star5, platforms);
-    this.physics.add.collider(bombs, platforms);
+    this.physics.add.collider(Veggie1, platforms);
+    this.physics.add.collider(Veggie2, platforms);
+    this.physics.add.collider(Veggie3, platforms);
+    this.physics.add.collider(Veggie4, platforms);
+    this.physics.add.collider(Veggie5, platforms);
+    this.physics.add.collider(Sugars, platforms);
 
-    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-    this.physics.add.overlap(player, star1, collectStar, null, this);
-    this.physics.add.overlap(player, star2, collectStar, null, this);
-    this.physics.add.overlap(player, star3, collectStar, null, this);
-    this.physics.add.overlap(player, star4, collectStar, null, this);
-    this.physics.add.overlap(player, star5, collectStar, null, this);
+    //  Checks to see if the player overlaps with any of the Veggies, if he does call the collectVeggie function
+    this.physics.add.overlap(player, Veggie1, collectVeggie, null, this);
+    this.physics.add.overlap(player, Veggie2, collectVeggie, null, this);
+    this.physics.add.overlap(player, Veggie3, collectVeggie, null, this);
+    this.physics.add.overlap(player, Veggie4, collectVeggie, null, this);
+    this.physics.add.overlap(player, Veggie5, collectVeggie, null, this);
 
-    this.physics.add.collider(player, bombs, hitBomb, null, this);
+    this.physics.add.collider(player, Sugars, hitSugar, null, this);
 }
 
 function update ()
@@ -225,13 +224,13 @@ function update ()
 
     if (cursors.up.isDown)
     {
-        player.setVelocityY(-330);
+        player.setVelocityY(-250);
     }
 }
 
-function collectStar (player, star)
+function collectVeggie (player, Veggie)
 {
-    star.disableBody(true, true);
+    Veggie.disableBody(true, true);
 
     //  Add and update the score
     score += 10;
@@ -241,30 +240,88 @@ function collectStar (player, star)
     if(scoreNum % 5 == 0){
       var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
 
-      var bomb = bombs.create(x, 16, 'bomb');
-      bomb.setBounce(1);
-      bomb.setCollideWorldBounds(true);
-      bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-      bomb.allowGravity = false;
-      star1.children.iterate(function (child) {
-        child.enableBody(true, child.x, 0, true, true);
-      });
-      star2.children.iterate(function (child) {
-        child.enableBody(true, child.x, 0, true, true);
-      });
-      star3.children.iterate(function (child) {
-        child.enableBody(true, child.x, 0, true, true);
-      });
-      star4.children.iterate(function (child) {
-        child.enableBody(true, child.x, 0, true, true);
-      });
-      star5.children.iterate(function (child) {
-        child.enableBody(true, child.x, 0, true, true);
-      });
+      var Sugar = Sugars.create(x, 50, 'Sugar');
+      Sugar.setBounce(1);
+      Sugar.setCollideWorldBounds(true);
+      Sugar.setVelocity(Phaser.Math.Between(-200, 200), 20);
+      Sugar.allowGravity = false;
+      Veggie1 = this.physics.add.group({
+            key: 'Veggie',
+            repeat: 0,
+            setXY: { x: Math.floor((Math.random() * 1400)), y: Math.floor((Math.random() * 500)), stepX: 100 + Math.floor((Math.random() * 200)) }
+        });
+
+        Veggie1.children.iterate(function (child) {
+            child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.5));
+        });
+
+    Veggie2 = this.physics.add.group({
+        key: 'Veggie',
+        repeat: 0,
+        setXY: { x: Math.floor((Math.random() * 1400)), y: Math.floor((Math.random() * 500)), stepX: 100 + Math.floor((Math.random() * 200)) }
+    });
+
+    Veggie2.children.iterate(function (child) {
+
+        //  Give each Veggie a slightly different bounce
+        child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.5));
+
+    });
+
+    Veggie3 = this.physics.add.group({
+        key: 'Veggie',
+        repeat: 0,
+        setXY: { x: Math.floor((Math.random() * 1400)), y: Math.floor((Math.random() * 500)), stepX: 100 + Math.floor((Math.random() * 200)) }
+    });
+
+    Veggie3.children.iterate(function (child) {
+
+        //  Give each Veggie a slightly different bounce
+        child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.5));
+
+    });
+
+    Veggie4 = this.physics.add.group({
+        key: 'Veggie',
+        repeat: 0,
+        setXY: { x: Math.floor((Math.random() * 1400)), y: Math.floor((Math.random() * 500)), stepX: 100 + Math.floor((Math.random() * 200)) }
+    });
+
+    Veggie4.children.iterate(function (child) {
+
+        //  Give each Veggie a slightly different bounce
+        child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.5));
+
+    });
+
+    Veggie5 = this.physics.add.group({
+        key: 'Veggie',
+        repeat: 0,
+        setXY: { x: Math.floor((Math.random() * 1400)), y: Math.floor((Math.random() * 500)), stepX: 100 + Math.floor((Math.random() * 200)) }
+    });
+
+    Veggie5.children.iterate(function (child) {
+
+        //  Give each Veggie a slightly different bounce
+        child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.5));
+
+    });
+
+    this.physics.add.collider(Veggie1, platforms);
+    this.physics.add.collider(Veggie2, platforms);
+    this.physics.add.collider(Veggie3, platforms);
+    this.physics.add.collider(Veggie4, platforms);
+    this.physics.add.collider(Veggie5, platforms);
+
+    this.physics.add.overlap(player, Veggie1, collectVeggie, null, this);
+    this.physics.add.overlap(player, Veggie2, collectVeggie, null, this);
+    this.physics.add.overlap(player, Veggie3, collectVeggie, null, this);
+    this.physics.add.overlap(player, Veggie4, collectVeggie, null, this);
+    this.physics.add.overlap(player, Veggie5, collectVeggie, null, this);
     }
 }
 
-function hitBomb (player, bomb){
+function hitSugar (player, Sugar){
     this.physics.pause();
 
     player.setTint(0xff0000);
@@ -272,6 +329,9 @@ function hitBomb (player, bomb){
     player.anims.play('turn');
 
     gameOver = true;
+
+    gameOverText = this.add.text(window.innerWidth/2 - 325, window.innerHeight/2 - 125, 'Game Over', { fontSize: '128px', fill: '#000' });
+
 }
 
 </script>
