@@ -38,4 +38,4 @@ Dynamic camera and deploy it to mobile devices.
 
 
 **Try it out**
-83.229.67.102:8000
+[https://83.229.67.102:8000](https://83.229.67.102:8000)
